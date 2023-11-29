@@ -13,7 +13,7 @@ class StoryCard extends LitWithoutShadowDom {
     render() {
         return html`
             <div class="card">
-                <img src="${this.src}" alt="" class="card-img-top img-fluid">
+                <!-- <img src="${this.src}" alt="" class="card-img-top img-fluid"> -->
                 <div class="card-body">
                     <h5 class="card-title">${this.title}</h5>
                     <h6>${this.date}</h6>

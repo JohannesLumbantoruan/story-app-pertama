@@ -12,7 +12,7 @@ class StoryPreview extends LitWithoutShadowDom {
     render() {
         return html`
             <div id="${this.id}">
-                <img src="${this.src}" alt="" class="img-fluid img-thumbnail circle">
+                <!-- <img src="${this.src}" alt="" class="img-fluid img-thumbnail circle"> -->
                 <p>${this.name}</p>
             </div>
         `;
