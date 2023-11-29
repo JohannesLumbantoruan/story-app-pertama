@@ -33,6 +33,11 @@ div#story-preview {
     &> * {
         flex: 0 0 200px;
     }
+
+    img.img-fluid.img-thumbnail {
+        max-height: 150px;
+        min-height: 150px;
+    }
 }
 
 story-preview {
@@ -47,7 +52,8 @@ story-preview {
 
 div#add-story-preview {
     :first-child {
-        height: 75%;
+        min-height: 150px;
+        max-height: 150px;
         display: none;
     }
 
