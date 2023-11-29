@@ -10,9 +10,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     for (const story of stories) {
         const storyPreview = document.createElement('story-preview');
 
-        storyPreview.setAttribute('id', story.kd);
+        storyPreview.setAttribute('id', story.id);
         storyPreview.setAttribute('src', story.photoUrl);
         storyPreview.setAttribute('name', story.name);
+
+        storyPreview.addEventListener('click', () => storyPreviewClickHandler(story.id, stories, storyContainer));
 
         storyPreviewContainer.appendChild(storyPreview);
     }
@@ -29,7 +31,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     storyContainer.appendChild(storyCard);
 
     // const storyInterval = setInterval(() => changeStory(storyContainer, stories), 1000 * 20);
-    const progressBarInterval = setInterval(() => addProgressBar(progressBar, storyContainer, stories), 1000);
+    const progressBarInterval = setInterval(() => addProgressBar(progressBar, storyContainer, stories), 500);
 });
 
 function changeStory(container, stories) {
@@ -49,8 +51,6 @@ function changeStory(container, stories) {
 function addProgressBar(el, container, stories) {
     const width = Number(el.style.width.replaceAll(/[\D]/g, ''));
 
-    console.log(width);
-
     if (width < 100) {
         el.style.width = (width + 5) + '%';
     } else {
@@ -69,4 +69,27 @@ function formatDate(date) {
             dateStyle: 'full'
         }
     ).format(new Date(date));
+}
+
+function storyPreviewClickHandler(id, stories, container) {
+    // const id = e.target.id;
+    const story = stories.filter((story) => story.id === id)[0];
+
+    // const storyContainer = document.querySelector('div#story');
+    const storyCard = document.createElement('story-card');
+
+    console.log(container.children[1]);
+
+    container.removeChild(container.children[1]);
+
+    storyCard.setAttribute('src', story.photoUrl);
+    storyCard.setAttribute('title', story.name);
+    storyCard.setAttribute('description', story.description);
+    // storyCard.setAttribute('date', formatDate(story.createdAt))
+
+    container.appendChild(storyCard);
+
+    const progressBar = document.querySelector('.progress-bar');
+
+    progressBar.style.width = '0%';
 }

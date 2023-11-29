@@ -31,3 +31,11 @@ div#story-preview::-webkit-scrollbar {
 div#story-preview > * {
     flex: 0 0 200px;
 }
+
+story-preview:hover {
+    border-bottom: solid yellow;
+}
+
+story-preview:active {
+    border-bottom: solid white;
+}
