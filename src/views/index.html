@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= htmlWebpackPlugin.options.title %></title>
+</head>
+<body class="container-fluid bg-dark" data-bs-theme="dark">
+    <div class="row">
+        <div class="col-12">
+            <nav-app></nav-app>
+        </div>
+        <div id="story-preview" class="col-12 my-3 d-flex flex-nowrap overflow-x-scroll gap-3"></div>
+        <div id="story" class="col-12 w-50 mx-auto my-3">
+            <div class="progress mb-3" role="progressbar">
+                <div class="progress-bar" style="width: 0%"></div>
+            </div>
+        </div>
+        <footer-app class="col-12"></footer-app>
+    </div>
+</body>
+</html>
