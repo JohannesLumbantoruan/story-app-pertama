@@ -1,11 +1,20 @@
+let oldStory;
+
 document.addEventListener('DOMContentLoaded', async () => {
-    const { pathname } = window.location;
+    const { href } = window.location;
 
-    if (pathname !== '/' && pathname !== '/index.html') return;
+    // if (pathname !== '/' && pathname !== '/index.html') return;
 
-    const res = await fetch('/data/DATA.json');
-    const data = await res.json();
-    const stories = data.listStory;
+    const pattern = /\/\??.*/;
+    const pattern2 = /\/index\.html\??.*/;
+
+    if (!pattern.test(href) && (!pattern2.test(href))) return;
+
+    const queries = new URLSearchParams(href.split('?')[1]);
+
+    // const res = await fetch('/data/DATA.json');
+    // const data = await res.json();
+    const stories = JSON.parse(localStorage.stories);
 
     const storyContainer = document.querySelector('div#story');
     const storyPreviewContainer = document.querySelector('div#story-preview');
@@ -44,14 +53,21 @@ document.addEventListener('DOMContentLoaded', async () => {
         storyPreviewContainer.appendChild(storyPreview);
     }
 
-    const randomStory = Math.floor(Math.random() * stories.length);
+    // const randomStory = Math.floor(Math.random() * stories.length);
+    let randomStory = stories[Math.floor(Math.random() * stories.length)];
+    oldStory = randomStory;
+
+    if (queries.has('id')) {
+        randomStory = stories.filter((story) => story.id === queries.get('id'))[0];
+        oldStory = randomStory;
+    }
 
     const storyCard = document.createElement('story-card');
 
-    storyCard.setAttribute('src', stories[randomStory].photoUrl);
-    storyCard.setAttribute('title', stories[randomStory].name);
-    storyCard.setAttribute('description', stories[randomStory].description);
-    storyCard.setAttribute('date', formatDate(stories[randomStory].createdAt))
+    storyCard.setAttribute('src', randomStory.photoUrl);
+    storyCard.setAttribute('title', randomStory.name);
+    storyCard.setAttribute('description', randomStory.description);
+    storyCard.setAttribute('date', formatDate(randomStory.createdAt))
 
     storyContainer.appendChild(storyCard);
 
@@ -60,25 +76,24 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 function changeStory(container, stories) {
-    // container.removeChild(container.children[1]);
+    let randomStory = stories[Math.floor(Math.random() * stories.length)];
 
-    const randomStory = stories[Math.floor(Math.random() * stories.length)];
+    while (randomStory.id === oldStory.id) {
+        randomStory = stories[Math.floor(Math.random() * stories.length)];
+    }
+
+    oldStory = randomStory;
 
     const storyCard = document.createElement('story-card');
 
-    // storyCard.setAttribute('src', stories[randomStory].photoUrl);
-    // storyCard.setAttribute('title', stories[randomStory].name);
-    // storyCard.setAttribute('description', stories[randomStory].description);
-
-    // container.appendChild(storyCard);
     renderStory(container, storyCard, randomStory);
 }
 
 function addProgressBar(el, container, stories) {
-    const width = Number(el.style.width.replaceAll(/[\D]/g, ''));
+    const width = Number(el.style.width.replaceAll(/[^\d.]/g, ''));
 
     if (width < 100) {
-        el.style.width = (width + 5) + '%';
+        el.style.width = (width + 2.5) + '%';
     } else {
         el.style.width = '0%';
     }

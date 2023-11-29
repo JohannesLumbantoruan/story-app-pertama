@@ -3,18 +3,23 @@ import { html } from "lit";
 import LitWithoutShadowDom from "./LitWithoutShadowDom";
 
 class AddStoryForm extends LitWithoutShadowDom {
+    static properties = {
+        name: { type: String, state: true },
+        description: { type: String, state: true },
+        img: { type: String, state: true }
+    };
+
     render() {
         return html`
             <h1 class="text-center mb-2">Add a New Story</h1>
-            <form>
+            <form @submit=${this.submitHandler}>
                 <div class="mb-3">
                     <label for="inputName" class="form-label">Name</label>
-                    <input type="text" class="form-control" id="inputName">
-                    <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+                    <input @input=${this.nameInputHandler} type="text" class="form-control" id="inputName">
                 </div>
                 <div class="mb-3">
                     <label for="inputDescription" class="form-label">Description</label>
-                    <input type="text" class="form-control" id="inputDescription">
+                    <input @input=${this.descriptionInputHandler} type="text" class="form-control" id="inputDescription">
                 </div>
                 <div class="mb-3">
                     <label for="inputImage" class="form-label">Image</label>
@@ -26,6 +31,14 @@ class AddStoryForm extends LitWithoutShadowDom {
                 <button type="submit" class="btn btn-primary d-block w-100 mx-auto mt-5">Submit</button>
             </form>
         `;
+    }
+
+    nameInputHandler(e) {
+        this.name = e.target.value;
+    }
+
+    descriptionInputHandler(e) {
+        this.description = e.target.value;
     }
 
     imagePreviewHandler(e) {
@@ -47,10 +60,34 @@ class AddStoryForm extends LitWithoutShadowDom {
 
             reader.onload = (e) => {
                 img.src = e.target.result;
+
+                this.img = e.target.result;
             }
 
             reader.readAsDataURL(image);
         }
+    }
+
+    submitHandler(e) {
+        e.preventDefault();
+
+        const stories = JSON.parse(localStorage.stories);
+
+        const id = 'story-' + Date.now();
+
+        const story = {
+            id,
+            name: this.name,
+            description: this.description,
+            photoUrl: this.img,
+            createdAt: new Date().toISOString()
+        }
+
+        stories.push(story);
+
+        localStorage.stories = JSON.stringify(stories);
+
+        window.location.href = `/index.html?id=${id}`;
     }
 }
 
