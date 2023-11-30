@@ -10,7 +10,17 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     const queries = new URLSearchParams(href.split('?')[1]);
 
-    const stories = JSON.parse(localStorage.stories);
+    let stories;
+
+    if (!localStorage.stories) {
+        const res = await fetch('/data/DATA.json');
+        const data = await res.json();
+        stories = data.listStory;
+
+        localStorage.setItem('stories', JSON.stringify(stories));
+    } else {
+        stories = JSON.parse(localStorage.getItem('stories'));
+    }
 
     const storyContainer = document.querySelector('div#story');
     const storyPreviewContainer = document.querySelector('div#story-preview');
