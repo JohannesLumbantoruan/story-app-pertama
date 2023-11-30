@@ -12,19 +12,25 @@ class AddStoryForm extends LitWithoutShadowDom {
     render() {
         return html`
             <h1 class="text-center mb-2">Add a New Story</h1>
-            <form @submit=${this.submitHandler}>
+            <form @submit=${this.submitHandler} novalidate>
                 <div class="mb-3">
                     <label for="inputName" class="form-label">Name</label>
-                    <input @input=${this.nameInputHandler} type="text" class="form-control" id="inputName">
+                    <input @input=${this.nameInputHandler} type="text" class="form-control" id="inputName" required>
+                    <div class="invalid-feedback">Name is required</div>
+                    <div class="valid-feedback">Ok</div>
                 </div>
                 <div class="mb-3">
                     <label for="inputDescription" class="form-label">Description</label>
-                    <input @input=${this.descriptionInputHandler} type="text" class="form-control" id="inputDescription">
+                    <input @input=${this.descriptionInputHandler} type="text" class="form-control" id="inputDescription" required>
+                    <div class="invalid-feedback">Description is required</div>
+                    <div class="valid-feedback">Ok</div>
                 </div>
                 <div class="mb-3">
                     <label for="inputImage" class="form-label">Image</label>
-                    <input type="file" class="form-control mb-3" id="inputImage" accept="image/*" @change=${this.imagePreviewHandler}>
-                    <div class="img-preview">
+                    <input type="file" class="form-control" id="inputImage" accept="image/*" @change=${this.imagePreviewHandler} required>
+                    <div class="invalid-feedback">Image is required</div>
+                    <div class="valid-feedback">Ok</div>
+                    <div class="img-preview mt-4">
                         + Add Image
                     </div>
                 </div>
@@ -71,6 +77,12 @@ class AddStoryForm extends LitWithoutShadowDom {
     submitHandler(e) {
         e.preventDefault();
 
+        if (!e.target.checkValidity()) {
+            e.target.classList.add('was-validated');
+
+            return;
+        }
+
         const stories = JSON.parse(localStorage.stories);
 
         const id = 'story-' + Date.now();
@@ -87,7 +99,18 @@ class AddStoryForm extends LitWithoutShadowDom {
 
         localStorage.stories = JSON.stringify(stories);
 
-        window.location.href = `/index.html?id=${id}`;
+        const modal = document.querySelector('div.modal[tabindex="-1"]');
+
+        modal.style.display = 'block';
+
+        const viewBtn = document.querySelector('.modal .btn.btn-primary');
+
+        console.log(viewBtn);
+
+        viewBtn.addEventListener('click', () => {
+            console.log('It works');
+            window.location.href = `/index.html?id=${id}`;
+        });
     }
 }
 

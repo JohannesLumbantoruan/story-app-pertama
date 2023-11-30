@@ -1,5 +1,14 @@
 @use 'vendors';
 
+$text-color: white;
+$story-preview-border-hover: yellow;
+$story-preview-border-active: white;
+
+@mixin story-preview {
+    max-height: 150px;
+    min-height: 150px;   
+}
+
 *,
 *::before,
 *::after {
@@ -15,7 +24,7 @@ body {
 footer {
     margin-top: 20px;
     border-top: 3px solid white;
-    color: white;
+    color: $text-color;
 }
 
 footer {
@@ -35,26 +44,23 @@ div#story-preview {
     }
 
     img.img-fluid.img-thumbnail {
-        max-height: 150px;
-        min-height: 150px;
+        @include story-preview;
     }
 }
 
 story-preview {
     &:hover {
-        border-bottom: solid yellow;
+        border-bottom: solid $story-preview-border-hover;
     }
 
     &:active {
-        border-bottom: solid white;
+        border-bottom: solid $story-preview-border-active;
     }
 }
 
 div#add-story-preview {
     :first-child {
-        min-height: 150px;
-        max-height: 150px;
-        display: none;
+        @include story-preview;
     }
 
     &:hover {

@@ -1,11 +1,24 @@
-import { html, css } from 'lit';
+import { html, css, LitElement } from 'lit';
 
-import LitWithoutShadowDom from './LitWithoutShadowDom';
-
-class FooterApp extends LitWithoutShadowDom {
+class FooterApp extends LitElement {
     static styles = css`
+        *,
+        *::before,
+        *::after {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
         :host {
             display: block;
+        }
+
+        footer {
+            border-top: 3px solid white;
+            padding-block: 10px 30px;
+            text-align: center;
+            margin-top: 30px;
         }
     `;
 

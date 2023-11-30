@@ -3,11 +3,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
-const HtmlWebpackPluginConfig = {
-    templateParameters: {
-    }
-};
-
 module.exports = {
     entry: {
         app: path.resolve(__dirname, 'src/js/index.js')
@@ -47,13 +42,17 @@ module.exports = {
         new HtmlWebpackPlugin({
             title: 'Dashboard | Story App',
             filename: 'index.html',
-            template: path.resolve(__dirname, 'src/views/index.html'),
-            ...HtmlWebpackPluginConfig
+            template: path.resolve(__dirname, 'src/views/index.html')
         }),
         new HtmlWebpackPlugin({
             title: 'Add Story | Story App',
             filename: 'stories/add.html',
             template: path.resolve(__dirname, 'src/views/stories/add.html')
+        }),
+        new HtmlWebpackPlugin({
+            title: 'About | Story App',
+            filename: 'about.html',
+            template: path.resolve(__dirname, 'src/views/about.html')
         }),
 
         new CopyWebpackPlugin({

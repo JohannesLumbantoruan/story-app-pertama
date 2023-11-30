@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // if (pathname !== '/' && pathname !== '/index.html') return;
 
-    const pattern = /\/\??.*/;
+    const pattern = /\/(\??$|\?.*)/;
     const pattern2 = /\/index\.html\??.*/;
 
     if (!pattern.test(href) && (!pattern2.test(href))) return;
