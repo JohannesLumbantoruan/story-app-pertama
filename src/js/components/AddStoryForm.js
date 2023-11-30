@@ -48,7 +48,6 @@ class AddStoryForm extends LitWithoutShadowDom {
     }
 
     imagePreviewHandler(e) {
-        // const image = document.querySelector('#inputImage').files[0];
         const image = e.target.files[0];
         const imagePreview = document.querySelector('div.img-preview');
         const img = document.createElement('img');
