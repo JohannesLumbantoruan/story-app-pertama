@@ -38,6 +38,10 @@ const Login = {
             try {
                 const data = await this.sendRequest(formData);
 
+                for (const key of Object.keys(data.loginResult)) {
+                    localStorage[key] = data.loginResult[key];
+                }
+
                 this.goToDashboardPage();
             } catch (error) {
                 console.error(error);

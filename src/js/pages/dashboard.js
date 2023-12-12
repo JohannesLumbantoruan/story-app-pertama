@@ -1,7 +1,15 @@
+import axios from '../network/axios';
+
 let oldStory;
 
 const Index = {
     async init() {
+        if (!localStorage.stories) {
+            const data = await this.fetchData();
+
+            localStorage.stories = JSON.stringify(data);
+        }
+
         const { href } = window.location;
 
         const pattern = /\/(\??$|\?.*)/;
@@ -10,18 +18,20 @@ const Index = {
         if (!pattern.test(href) && (!pattern2.test(href))) return;
     
         const queries = new URLSearchParams(href.split('?')[1]);
+
+        const stories = JSON.parse(localStorage.stories);
     
-        let stories;
+        // let stories;
     
-        if (!localStorage.stories) {
-            const res = await fetch('/data/DATA.json');
-            const data = await res.json();
-            stories = data.listStory;
+        // if (!localStorage.stories) {
+        //     const res = await fetch('/data/DATA.json');
+        //     const data = await res.json();
+        //     stories = data.listStory;
     
-            localStorage.setItem('stories', JSON.stringify(stories));
-        } else {
-            stories = JSON.parse(localStorage.getItem('stories'));
-        }
+        //     localStorage.setItem('stories', JSON.stringify(stories));
+        // } else {
+        //     stories = JSON.parse(localStorage.getItem('stories'));
+        // }
     
         const storyContainer = document.querySelector('div#story');
         const storyPreviewContainer = document.querySelector('div#story-preview');
@@ -77,6 +87,20 @@ const Index = {
         storyContainer.appendChild(storyCard);
     
         const progressBarInterval = setInterval(() => this.addProgressBar(progressBar, storyContainer, stories), 500);
+    },
+
+    async fetchData() {
+        try {
+            const response = await axios.get('/stories', {
+                headers: {
+                    Authorization: `Bearer ${localStorage.token}`
+                }
+            });
+
+            return response.data.listStory;
+        } catch (error) {
+            console.error(error);
+        }
     },
     
     changeStory(container, stories) {

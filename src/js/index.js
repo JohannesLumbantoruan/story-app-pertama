@@ -8,6 +8,7 @@ import Index from './pages/dashboard';
 import Register from './pages/auth/register';
 import Login from './pages/auth/login';
 import Add from './pages/add';
+import CheckUserAuth from './auth/check-auth';
 
 const routes = {
     login: Login,
@@ -37,6 +38,7 @@ function detectRoute() {
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
+    CheckUserAuth.checkLoginState();
     const route = detectRoute();
     await route.init();
 });

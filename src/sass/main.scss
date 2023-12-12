@@ -5,8 +5,9 @@ $story-preview-border-hover: yellow;
 $story-preview-border-active: white;
 
 @mixin story-preview {
+    min-width: 200px;
     max-height: 150px;
-    min-height: 150px;   
+    min-height: 150px;
 }
 
 *,
@@ -45,6 +46,7 @@ div#story-preview {
 
     img.img-fluid.img-thumbnail {
         @include story-preview;
+        object-fit: cover;
     }
 }
 
@@ -80,4 +82,8 @@ div.img-preview {
     border-style: dashed;
     line-height: 200px;
     text-align: center;
+}
+
+.loggedIn {
+    display: none;
 }

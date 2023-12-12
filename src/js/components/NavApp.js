@@ -24,6 +24,7 @@ class NavApp extends LitWithoutShadowDom {
                     </div>
                     <div class="offcanvas-body">
                         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                            <li class="nav-item loggedIn"></li>
                             <li class="nav-item">
                                 <a class="nav-link active" aria-current="page" href="/index.html">Home</a>
                             </li>
@@ -33,17 +34,26 @@ class NavApp extends LitWithoutShadowDom {
                             <li class="nav-item">
                                 <a class="nav-link" href="/about.html">About</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/auth/login.html">Login</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/auth/register.html">Register</a>
-                            </li>
+                            <div id="guest">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/auth/login.html">Login</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/auth/register.html">Register</a>
+                                </li>
+                            </div>
+                            <div class="nav-item loggedIn">
+                                <a href="" class="nav-link" @click=${this.logout}>Logout</a>
+                            </div>
                     </div>
                 </div>
             </div>
         </nav>
         `;
+    }
+
+    logout() {
+        localStorage.removeItem('token');
     }
 }
 
