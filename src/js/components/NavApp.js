@@ -33,6 +33,12 @@ class NavApp extends LitWithoutShadowDom {
                             <li class="nav-item">
                                 <a class="nav-link" href="/about.html">About</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/auth/login.html">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/auth/register.html">Register</a>
+                            </li>
                     </div>
                 </div>
             </div>

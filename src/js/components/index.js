@@ -5,3 +5,4 @@ import './StoryPreview.js';
 import './AddStoryForm.js';
 import './ModalMessage.js';
 import './AboutUs.js';
+import './FloatingInput.js';
