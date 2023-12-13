@@ -2,9 +2,11 @@ import { html } from "lit";
 
 import LitWithoutShadowDom from "./LitWithoutShadowDom";
 
+import axios from '../network/axios';
+
 class AddStoryForm extends LitWithoutShadowDom {
     static properties = {
-        name: { type: String, state: true },
+        // name: { type: String, state: true },
         description: { type: String, state: true },
         img: { type: String, state: true }
     };
@@ -13,12 +15,12 @@ class AddStoryForm extends LitWithoutShadowDom {
         return html`
             <h1 class="text-center mb-2">Add a New Story</h1>
             <form @submit=${this.submitHandler} novalidate>
-                <div class="mb-3">
+                <!-- <div class="mb-3">
                     <label for="inputName" class="form-label">Name</label>
                     <input @input=${this.nameInputHandler} type="text" class="form-control" id="inputName" required>
                     <div class="invalid-feedback">Name is required</div>
                     <div class="valid-feedback">Ok</div>
-                </div>
+                </div> -->
                 <div class="mb-3">
                     <label for="inputDescription" class="form-label">Description</label>
                     <input @input=${this.descriptionInputHandler} type="text" class="form-control" id="inputDescription" required>
@@ -73,43 +75,66 @@ class AddStoryForm extends LitWithoutShadowDom {
         }
     }
 
-    submitHandler(e) {
+    async submitHandler(e) {
         e.preventDefault();
 
-        if (!e.target.checkValidity()) {
-            e.target.classList.add('was-validated');
+        // if (!e.target.checkValidity()) {
+        //     e.target.classList.add('was-validated');
 
+        //     return;
+        // }
+
+        // const stories = JSON.parse(localStorage.stories);
+
+        // const id = 'story-' + Date.now();
+
+        // const story = {
+        //     id,
+        //     name: this.name,
+        //     description: this.description,
+        //     photoUrl: this.img,
+        //     createdAt: new Date().toISOString()
+        // }
+
+        // stories.push(story);
+
+        // localStorage.stories = JSON.stringify(stories);
+
+        // const modal = document.querySelector('div.modal[tabindex="-1"]');
+
+        // modal.style.display = 'block';
+
+        // const viewBtn = document.querySelector('.modal .btn.btn-primary');
+
+        // console.log(viewBtn);
+
+        // viewBtn.addEventListener('click', () => {
+        //     console.log('It works');
+        //     window.location.href = `/index.html?id=${id}`;
+        // });
+
+        const photo = this.querySelector('input#inputImage').files[0];
+
+        if (!photo || !this.description) {
+            e.target.classList.add('was-validated');
             return;
         }
 
-        const stories = JSON.parse(localStorage.stories);
-
-        const id = 'story-' + Date.now();
-
-        const story = {
-            id,
-            name: this.name,
+        const data = {
             description: this.description,
-            photoUrl: this.img,
-            createdAt: new Date().toISOString()
-        }
+            photo
+        };
 
-        stories.push(story);
-
-        localStorage.stories = JSON.stringify(stories);
-
-        const modal = document.querySelector('div.modal[tabindex="-1"]');
-
-        modal.style.display = 'block';
-
-        const viewBtn = document.querySelector('.modal .btn.btn-primary');
-
-        console.log(viewBtn);
-
-        viewBtn.addEventListener('click', () => {
-            console.log('It works');
-            window.location.href = `/index.html?id=${id}`;
+        const response = await axios.post('/stories', data, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                Authorization: `Bearer ${localStorage.token}`
+            }
         });
+
+        localStorage.addStory = JSON.stringify(response.data);
+
+        location.href = `${location.origin}/`;
     }
 }
 

@@ -86,4 +86,24 @@ div.img-preview {
 
 .loggedIn {
     display: none;
+
+    &:first-child {
+        width: fit-content;
+        border: solid white;
+        padding: 5px 10px;
+        border-radius: 20px;
+    }
+
+    &:hover {
+        border-color: yellow; 
+    }
+}
+
+story-card {
+    img.img-fluid.card-img-top {
+        object-fit: cover;
+        max-height: 500px;
+        min-height: 500px;
+        object-position: center top;
+    }
 }

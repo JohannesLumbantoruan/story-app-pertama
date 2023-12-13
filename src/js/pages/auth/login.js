@@ -39,7 +39,7 @@ const Login = {
                 const data = await this.sendRequest(formData);
 
                 for (const key of Object.keys(data.loginResult)) {
-                    localStorage[key] = data.loginResult[key];
+                    localStorage[key] = JSON.stringify(data.loginResult[key]);
                 }
 
                 this.goToDashboardPage();

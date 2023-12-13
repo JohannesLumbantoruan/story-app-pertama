@@ -4,11 +4,9 @@ let oldStory;
 
 const Index = {
     async init() {
-        if (!localStorage.stories) {
-            const data = await this.fetchData();
+        const data = await this.fetchData();
 
-            localStorage.stories = JSON.stringify(data);
-        }
+        localStorage.stories = JSON.stringify(data);
 
         const { href } = window.location;
 
