@@ -6,12 +6,16 @@
         <title><%= htmlWebpackPlugin.options.title %> |</title>
     </head>
     <body
-        class="container-fluid bg-dark d-flex justify-content-center align-items-center"
+        class="container-fluid bg-dark d-flex justify-content-center align-items-center position-relative z-0"
         data-bs-theme="dark"
     >
         <div class="row flex-grow-1 flex-shrink-1">
             <form id="loginForm" class="col-md-4 m-auto" novalidate>
                 <h1 class="text-center">LOGIN</h1>
+                <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
+                    <p class="message py-0 my-0"></p>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
                 <floating-input
                     id="emailFloatingInput"
                     type="email"
@@ -32,6 +36,14 @@
                     <a href="/auth/register.html">here</a>
                 </p>
             </form>
+        </div>
+        <div
+            class="container-fluid d-flex justify-content-center align-items-center
+            position-absolute top-0 left-0 min-vw-100 min-vh-100 z-3"
+        >
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
         </div>
     </body>
 </html>

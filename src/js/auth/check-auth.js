@@ -27,6 +27,10 @@ const CheckUserAuth = {
                 console.log('On auth page');
                 location.href = location.origin + '/';
             }
+        } else {
+            if (!this.isOnAuthPage()) {
+                this.goToLoginPage();
+            }
         }
     },
 
@@ -43,6 +47,10 @@ const CheckUserAuth = {
         }
 
         return false;
+    },
+
+    goToLoginPage() {
+        location.href = `${location.origin}/auth/login.html`;
     }
 };
 

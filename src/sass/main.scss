@@ -107,3 +107,14 @@ story-card {
         object-position: center top;
     }
 }
+
+.container-fluid {
+    >.container-fluid.d-flex {
+        visibility: hidden;
+    }
+}
+
+.alert,
+.alert * {
+    display: none;
+}

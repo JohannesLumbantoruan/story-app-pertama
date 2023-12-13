@@ -39,12 +39,26 @@ const Login = {
                 const data = await this.sendRequest(formData);
 
                 for (const key of Object.keys(data.loginResult)) {
-                    localStorage[key] = JSON.stringify(data.loginResult[key]);
+                    localStorage[key] = data.loginResult[key];
                 }
 
                 this.goToDashboardPage();
             } catch (error) {
-                console.error(error);
+                const alert = document.querySelector('.alert');
+                const alertMsg = document.querySelector('.alert > p.message');
+                const alerts = document.querySelectorAll('.alert, .alert *');
+                const spinner = document.querySelector('.position-absolute');
+                const blur = document.querySelector('.row');
+                const { message } = error.response.data;
+
+                spinner.style.visibility = 'hidden';
+                blur.style.filter = 'none';
+
+                alertMsg.innerText = message;
+
+                alerts.forEach((el) => el.style.display = 'block');
+
+                console.error(message);
             }
         });
     },
@@ -57,6 +71,11 @@ const Login = {
     },
 
     async sendRequest(data) {
+        const spinner = document.querySelector('.position-absolute');
+        const blur = document.querySelector('.row');
+        spinner.style.visibility = 'visible';
+        blur.style.filter = 'blur(1px)';
+
         const response = await axios.post('/login', data, {
             headers: {
                 'Content-Type': 'application/json'
