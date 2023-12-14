@@ -96,7 +96,9 @@ const Index = {
 
             return response.data.listStory;
         } catch (error) {
-            console.error(error);
+            const { message } = error.response.data;
+
+            alert(`Error: ${message}\nPlease pay attention to the error and try again`);
         }
     },
     
