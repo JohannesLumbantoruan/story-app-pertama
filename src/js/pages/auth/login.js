@@ -44,7 +44,6 @@ const Login = {
 
                 this.goToDashboardPage();
             } catch (error) {
-                const alert = document.querySelector('.alert');
                 const alertMsg = document.querySelector('.alert > p.message');
                 const alerts = document.querySelectorAll('.alert, .alert *');
                 const spinner = document.querySelector('.position-absolute');
@@ -57,9 +56,15 @@ const Login = {
                 alertMsg.innerText = message;
 
                 alerts.forEach((el) => el.style.display = 'block');
-
-                console.error(message);
             }
+        });
+
+        // alert dismiss listener
+        const closeBtn = document.querySelector('.btn-close');
+        const alerts = document.querySelectorAll('.alert, .alert *');
+
+        closeBtn.addEventListener('click', () => {
+            alerts.forEach((el) => el.style.display = 'none');
         });
     },
 

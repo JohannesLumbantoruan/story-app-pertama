@@ -12,6 +12,10 @@
         <div class="row flex-grow-1 flex-shrink-1">
             <form id="registerForm" class="col-md-4 m-auto" novalidate>
                 <h1 class="text-center">REGISTER</h1>
+                <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
+                    <p class="message py-0 my-0"></p>
+                    <button type="button" class="btn-close" aria-label="Close"></button>
+                </div>
                 <floating-input
                     type="text"
                     label="Name"
@@ -38,6 +42,14 @@
                     <a href="/auth/login.html">here</a>
                 </p>
             </form>
+        </div>
+        <div
+            class="container-fluid d-flex justify-content-center align-items-center
+            position-absolute top-0 left-0 min-vw-100 min-vh-100 z-3"
+        >
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
         </div>
     </body>
 </html>

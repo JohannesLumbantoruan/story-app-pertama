@@ -26,7 +26,7 @@ class NavApp extends LitWithoutShadowDom {
                         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                             <li class="nav-item loggedIn"></li>
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="/index.html">Home</a>
+                                <a class="nav-link" aria-current="page" href="/index.html">Home</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="/stories/add.html">Add Story</a>
@@ -45,6 +45,7 @@ class NavApp extends LitWithoutShadowDom {
                             <div class="nav-item loggedIn">
                                 <a href="" class="nav-link" @click=${this.logout}>Logout</a>
                             </div>
+                        </ul>
                     </div>
                 </div>
             </div>

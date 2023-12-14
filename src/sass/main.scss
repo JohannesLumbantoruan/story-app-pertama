@@ -118,3 +118,7 @@ story-card {
 .alert * {
     display: none;
 }
+
+.nav-item > .nav-link.active {
+    color: yellow;
+}

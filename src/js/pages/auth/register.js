@@ -57,16 +57,38 @@ const Register = {
             try {
                 const data = await this.sendRequest(formData);
 
-                console.log(data);
-
                 this.goToLoginPage();
             } catch (error) {
-                console.error(error);
+                const { message } = error.response.data;
+
+                const alerts = document.querySelectorAll('.alert, .alert *');
+                const alertMsg = document.querySelector('.alert p.message');
+                const spinner = document.querySelector('.position-absolute');
+                const blur = document.querySelector('.row');
+
+                spinner.style.visibility = 'hidden';
+                blur.style.filter = 'none';
+                alertMsg.innerText = message;
+
+                alerts.forEach((el) => el.style.display = 'block');
             }
+        });
+
+        // alert dismiss listener
+        const closeBtn = document.querySelector('.btn-close');
+        const alerts = document.querySelectorAll('.alert, .alert *');
+
+        closeBtn.addEventListener('click', () => {
+            alerts.forEach((el) => el.style.display = 'none');
         });
     },
 
-    async sendRequest(data) {        
+    async sendRequest(data) {  
+        const spinner = document.querySelector('.position-absolute');
+        const blur = document.querySelector('.row');
+        spinner.style.visibility = 'visible';
+        blur.style.filter = 'blur(1px)';
+
         const response = await axios.post('/register', data, {
             headers: {
                 'Content-Type': 'application/json'
