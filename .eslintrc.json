@@ -24,8 +24,8 @@
         "no-shadow": "off",
         "import/extensions": "off",
         "no-empty-function": "off",
-        "no-alert": "off",
         "import/prefer-default-export": "off",
-        "import/no-extraneous-dependencies": "off"
+        "import/no-extraneous-dependencies": "off",
+        "no-console": "off"
     }
 }

@@ -96,9 +96,7 @@ const Index = {
 
             return response.data.listStory;
         } catch (error) {
-            const { message } = error.response.data;
-
-            alert(`Error: ${message}\nPlease pay attention to the error and try again`);
+            console.error(error.response.data.message);
         }
     },
     
@@ -162,65 +160,5 @@ const Index = {
         container.appendChild(storyCard);
     }
 };
-
-// function changeStory(container, stories) {
-//     let randomStory = stories[Math.floor(Math.random() * stories.length)];
-
-//     while (randomStory.id === this.oldStory.id) {
-//         randomStory = stories[Math.floor(Math.random() * stories.length)];
-//     }
-
-//     this.oldStory = randomStory;
-
-//     const storyCard = document.createElement('story-card');
-
-//     this.renderStory(container, storyCard, randomStory);
-// }
-
-// function addProgressBar(el, container, stories) {
-//     const width = Number(el.style.width.replaceAll(/[^\d.]/g, ''));
-
-//     if (width < 100) {
-//         el.style.width = `${width + 2.5}%`;
-//     } else {
-//         el.style.width = '0%';
-//     }
-
-//     if (width === 100) {
-//         changeStory(container, stories)
-//     }
-// }
-
-// function formatDate(date) {
-//     return new Intl.DateTimeFormat(
-//         'id-ID',
-//         {
-//             dateStyle: 'full'
-//         }
-//     ).format(new Date(date));
-// }
-
-// function storyPreviewClickHandler(id, stories, container) {
-//     const story = stories.filter((story) => story.id === id)[0];
-
-//     const storyCard = document.createElement('story-card');
-
-//     this.renderStory(container, storyCard, story);
-
-//     const progressBar = document.querySelector('.progress-bar');
-
-//     progressBar.style.width = '0%';
-// }
-
-// function renderStory(container, storyCard, story) {
-//     container.removeChild(container.children[1]);
-
-//     storyCard.setAttribute('src', story.photoUrl);
-//     storyCard.setAttribute('title', story.name);
-//     storyCard.setAttribute('description', story.description);
-//     storyCard.setAttribute('date', formatDate(story.createdAt))
-
-//     container.appendChild(storyCard);
-// }
 
 export default Index;
