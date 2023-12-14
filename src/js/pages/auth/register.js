@@ -8,7 +8,7 @@ const Register = {
     getFormData() {
         const name = document.querySelector('floating-input[label=Name]').value;
         const email = document.querySelector('floating-input[label=Email]').value;
-        const password = document.querySelector('floating-input[label=Password]').value;
+        const password = document.querySelector('floating-input-group[label=Password]').value;
 
         return {
             name, email, password
@@ -21,7 +21,7 @@ const Register = {
         const passwordInput = document.querySelector('input#passwordFloatingInput');
         const emailInput = document.querySelector('input#emailFloatingInput');
         const name = document.querySelector('floating-input[label=Name]');
-        const password = document.querySelector('floating-input[label=Password]');
+        const password = document.querySelector('floating-input-group[label=Password]');
         const email = document.querySelector('floating-input[label=Email]');
 
         registerForm.addEventListener('submit', async (e) => {
@@ -34,6 +34,7 @@ const Register = {
     
                 if (nameInput.validity.valueMissing) {
                     name.setAttribute('invalidFeedbackMsg', 'Name required');
+                    document.querySelector('.input-group .invalid-feedback').style.display = 'block';
                 }
     
                 if (passwordInput.validity.tooShort) {

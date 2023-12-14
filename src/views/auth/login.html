@@ -12,9 +12,16 @@
         <div class="row flex-grow-1 flex-shrink-1">
             <form id="loginForm" class="col-md-4 m-auto" novalidate>
                 <h1 class="text-center">LOGIN</h1>
-                <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
+                <div
+                    class="alert alert-warning alert-dismissible fade show text-center"
+                    role="alert"
+                >
                     <p class="message py-0 my-0"></p>
-                    <button type="button" class="btn-close" aria-label="Close"></button>
+                    <button
+                        type="button"
+                        class="btn-close"
+                        aria-label="Close"
+                    ></button>
                 </div>
                 <floating-input
                     id="emailFloatingInput"
@@ -22,12 +29,20 @@
                     placeholder="johndoe@mail.com"
                     label="Email"
                 ></floating-input>
-                <floating-input
+                <!-- <floating-input
                     id="passwordFloatingInput"
                     type="password"
                     placeholder="password"
                     label="Password"
-                ></floating-input>
+                ></floating-input> -->
+                <floating-input-group
+                    id="passwordFloatingInput"
+                    label="Password"
+                    placeholder="Enter password"
+                    icon="bi bi-eye-fill"
+                    type="password"
+                ></floating-input-group>
+                <div class="invalid-feedback">Password required</div>
                 <button class="d-block w-100 btn btn-primary mt-3">
                     Submit
                 </button>
@@ -38,8 +53,7 @@
             </form>
         </div>
         <div
-            class="container-fluid d-flex justify-content-center align-items-center
-            position-absolute top-0 left-0 min-vw-100 min-vh-100 z-3"
+            class="container-fluid d-flex justify-content-center align-items-center position-absolute top-0 left-0 min-vw-100 min-vh-100 z-3"
         >
             <div class="spinner-border text-primary" role="status">
                 <span class="visually-hidden">Loading...</span>

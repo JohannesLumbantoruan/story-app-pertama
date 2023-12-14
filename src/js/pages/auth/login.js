@@ -8,13 +8,12 @@ const Login = {
     attachListener() {
         const loginForm = document.querySelector('form#loginForm');
         const email = document.querySelector('floating-input[label=Email]');
-        const password = document.querySelector('floating-input[label=Password]');
+        const password = document.querySelector('floating-input-group[label=Password]');
         const emailInput = document.querySelector('input#emailFloatingInput');
         const passwordInput = document.querySelector('input#passwordFloatingInput');
 
         loginForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-
 
             if (!e.target.checkValidity()) {
                 if (passwordInput.validity.tooShort) {
@@ -23,6 +22,7 @@ const Login = {
 
                 if (passwordInput.validity.valueMissing) {
                     password.setAttribute('invalidFeedbackMsg', 'Password required');
+                    document.querySelector('.input-group .invalid-feedback').style.display = 'block';
                 }
                 
                 if (emailInput.validity.typeMismatch) {
@@ -34,6 +34,8 @@ const Login = {
             }
 
             const formData = this.getFormData();
+
+            console.log(formData);
 
             try {
                 const data = await this.sendRequest(formData);
@@ -66,11 +68,26 @@ const Login = {
         closeBtn.addEventListener('click', () => {
             alerts.forEach((el) => el.style.display = 'none');
         });
+
+        // password visibility toggler listener
+        const toggler = document.querySelector('.input-group .bi');
+
+        toggler.addEventListener('click', (e) => {
+           if (e.target.classList.contains('bi-eye-fill')) {
+                e.target.classList.remove('bi-eye-fill');
+                e.target.classList.add('bi-eye-slash-fill');
+                passwordInput.type = 'text';
+           } else {
+                e.target.classList.add('bi-eye-fill');
+                e.target.classList.remove('bi-eye-slash-fill');
+                passwordInput.type = 'password';
+           }
+        });
     },
 
     getFormData() {
         const email = document.querySelector('floating-input[label=Email]').value;
-        const password = document.querySelector('floating-input[label=Password]').value;
+        const password = document.querySelector('floating-input-group[label=Password]').value;
 
         return { email, password };
     },

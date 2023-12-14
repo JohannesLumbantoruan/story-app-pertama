@@ -12,9 +12,16 @@
         <div class="row flex-grow-1 flex-shrink-1">
             <form id="registerForm" class="col-md-4 m-auto" novalidate>
                 <h1 class="text-center">REGISTER</h1>
-                <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
+                <div
+                    class="alert alert-warning alert-dismissible fade show text-center"
+                    role="alert"
+                >
                     <p class="message py-0 my-0"></p>
-                    <button type="button" class="btn-close" aria-label="Close"></button>
+                    <button
+                        type="button"
+                        class="btn-close"
+                        aria-label="Close"
+                    ></button>
                 </div>
                 <floating-input
                     type="text"
@@ -28,12 +35,19 @@
                     placeholder="johndoe@mail.com"
                     id="emailFloatingInput"
                 ></floating-input>
-                <floating-input
+                <!-- <floating-input
                     type="password"
                     label="Password"
                     placeholder="password"
                     id="passwordFloatingInput"
-                ></floating-input>
+                ></floating-input> -->
+                <floating-input-group
+                    id="passwordFloatingInput"
+                    label="Password"
+                    placeholder="Enter password"
+                    type="password"
+                    icon="bi-eye-fill"
+                ></floating-input-group>
                 <button class="btn btn-primary d-block mt-3 w-100">
                     Submit
                 </button>
@@ -44,8 +58,7 @@
             </form>
         </div>
         <div
-            class="container-fluid d-flex justify-content-center align-items-center
-            position-absolute top-0 left-0 min-vw-100 min-vh-100 z-3"
+            class="container-fluid d-flex justify-content-center align-items-center position-absolute top-0 left-0 min-vw-100 min-vh-100 z-3"
         >
             <div class="spinner-border text-primary" role="status">
                 <span class="visually-hidden">Loading...</span>
