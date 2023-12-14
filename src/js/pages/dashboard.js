@@ -1,10 +1,14 @@
 import axios from '../network/axios';
 
-let oldStory;
-
 const Index = {
+    oldStory: '',
+
     async init() {
         const data = await this.fetchData();
+
+        const dashboardPlaceholder = document.querySelector('#dashboard-placeholder');
+
+        dashboardPlaceholder.parentElement.removeChild(dashboardPlaceholder);
 
         localStorage.stories = JSON.stringify(data);
 
@@ -18,18 +22,6 @@ const Index = {
         const queries = new URLSearchParams(href.split('?')[1]);
 
         const stories = JSON.parse(localStorage.stories);
-    
-        // let stories;
-    
-        // if (!localStorage.stories) {
-        //     const res = await fetch('/data/DATA.json');
-        //     const data = await res.json();
-        //     stories = data.listStory;
-    
-        //     localStorage.setItem('stories', JSON.stringify(stories));
-        // } else {
-        //     stories = JSON.parse(localStorage.getItem('stories'));
-        // }
     
         const storyContainer = document.querySelector('div#story');
         const storyPreviewContainer = document.querySelector('div#story-preview');
@@ -68,11 +60,11 @@ const Index = {
         }
     
         let randomStory = stories[Math.floor(Math.random() * stories.length)];
-        oldStory = randomStory;
+        this.oldStory = randomStory;
     
         if (queries.has('id')) {
             randomStory = stories.filter((story) => story.id === queries.get('id'))[0];
-            oldStory = randomStory;
+            this.oldStory = randomStory;
         }
     
         const storyCard = document.createElement('story-card');
@@ -83,6 +75,11 @@ const Index = {
         storyCard.setAttribute('date', formatDate(randomStory.createdAt))
     
         storyContainer.appendChild(storyCard);
+
+        const footerApp = document.createElement('footer-app');
+        footerApp.classList.add('col-12');
+
+        document.querySelector('.row').appendChild(footerApp);
     
         const progressBarInterval = setInterval(() => this.addProgressBar(progressBar, storyContainer, stories), 500);
     },
@@ -104,11 +101,11 @@ const Index = {
     changeStory(container, stories) {
         let randomStory = stories[Math.floor(Math.random() * stories.length)];
     
-        while (randomStory.id === oldStory.id) {
+        while (randomStory.id === this.oldStory.id) {
             randomStory = stories[Math.floor(Math.random() * stories.length)];
         }
     
-        oldStory = randomStory;
+        this.oldStory = randomStory;
     
         const storyCard = document.createElement('story-card');
     
@@ -162,170 +159,14 @@ const Index = {
     }
 };
 
-// async function Index() {
-//     const { href } = window.location;
-
-//     const pattern = /\/(\??$|\?.*)/;
-//     const pattern2 = /\/index\.html\??.*/;
-
-//     if (!pattern.test(href) && (!pattern2.test(href))) return;
-
-//     const queries = new URLSearchParams(href.split('?')[1]);
-
-//     let stories;
-
-//     if (!localStorage.stories) {
-//         const res = await fetch('/data/DATA.json');
-//         const data = await res.json();
-//         stories = data.listStory;
-
-//         localStorage.setItem('stories', JSON.stringify(stories));
-//     } else {
-//         stories = JSON.parse(localStorage.getItem('stories'));
-//     }
-
-//     const storyContainer = document.querySelector('div#story');
-//     const storyPreviewContainer = document.querySelector('div#story-preview');
-//     const progressBar = document.querySelector('.progress-bar');
-
-//     const addStoryContainer = document.createElement('div');
-//     const addStoryPreview = document.createElement('div');
-//     const addStoryText = document.createElement('p');
-
-//     addStoryPreview.innerText = '+ Add Story';
-//     addStoryPreview.style.display = 'flex';
-//     addStoryPreview.style.justifyContent = 'center';
-//     addStoryPreview.style.alignItems = 'center';
-//     addStoryPreview.style.border = 'solid white';
-
-//     addStoryText.innerText = 'Bagikan ceritamu';
-
-//     addStoryContainer.setAttribute('id', 'add-story-preview');
-
-//     addStoryContainer.appendChild(addStoryPreview);
-//     addStoryContainer.appendChild(addStoryText);
-//     storyPreviewContainer.appendChild(addStoryContainer);
-
-//     addStoryContainer.addEventListener('click', () => window.location.href = location.origin + '/stories/add.html');
-
-//     for (const story of stories) {
-//         const storyPreview = document.createElement('story-preview');
-
-//         storyPreview.setAttribute('id', story.id);
-//         storyPreview.setAttribute('src', story.photoUrl);
-//         storyPreview.setAttribute('name', story.name);
-
-//         storyPreview.addEventListener('click', () => storyPreviewClickHandler(story.id, stories, storyContainer));
-
-//         storyPreviewContainer.appendChild(storyPreview);
-//     }
-
-//     let randomStory = stories[Math.floor(Math.random() * stories.length)];
-//     oldStory = randomStory;
-
-//     if (queries.has('id')) {
-//         randomStory = stories.filter((story) => story.id === queries.get('id'))[0];
-//         oldStory = randomStory;
-//     }
-
-//     const storyCard = document.createElement('story-card');
-
-//     storyCard.setAttribute('src', randomStory.photoUrl);
-//     storyCard.setAttribute('title', randomStory.name);
-//     storyCard.setAttribute('description', randomStory.description);
-//     storyCard.setAttribute('date', formatDate(randomStory.createdAt))
-
-//     storyContainer.appendChild(storyCard);
-
-//     const progressBarInterval = setInterval(() => addProgressBar(progressBar, storyContainer, stories), 500);
-// }
-
-// document.addEventListener('DOMContentLoaded', async () => {
-//     const { href } = window.location;
-
-//     const pattern = /\/(\??$|\?.*)/;
-//     const pattern2 = /\/index\.html\??.*/;
-
-//     if (!pattern.test(href) && (!pattern2.test(href))) return;
-
-//     const queries = new URLSearchParams(href.split('?')[1]);
-
-//     let stories;
-
-//     if (!localStorage.stories) {
-//         const res = await fetch('/data/DATA.json');
-//         const data = await res.json();
-//         stories = data.listStory;
-
-//         localStorage.setItem('stories', JSON.stringify(stories));
-//     } else {
-//         stories = JSON.parse(localStorage.getItem('stories'));
-//     }
-
-//     const storyContainer = document.querySelector('div#story');
-//     const storyPreviewContainer = document.querySelector('div#story-preview');
-//     const progressBar = document.querySelector('.progress-bar');
-
-//     const addStoryContainer = document.createElement('div');
-//     const addStoryPreview = document.createElement('div');
-//     const addStoryText = document.createElement('p');
-
-//     addStoryPreview.innerText = '+ Add Story';
-//     addStoryPreview.style.display = 'flex';
-//     addStoryPreview.style.justifyContent = 'center';
-//     addStoryPreview.style.alignItems = 'center';
-//     addStoryPreview.style.border = 'solid white';
-
-//     addStoryText.innerText = 'Bagikan ceritamu';
-
-//     addStoryContainer.setAttribute('id', 'add-story-preview');
-
-//     addStoryContainer.appendChild(addStoryPreview);
-//     addStoryContainer.appendChild(addStoryText);
-//     storyPreviewContainer.appendChild(addStoryContainer);
-
-//     addStoryContainer.addEventListener('click', () => window.location.pathname = '/stories/add.html');
-
-//     for (const story of stories) {
-//         const storyPreview = document.createElement('story-preview');
-
-//         storyPreview.setAttribute('id', story.id);
-//         storyPreview.setAttribute('src', story.photoUrl);
-//         storyPreview.setAttribute('name', story.name);
-
-//         storyPreview.addEventListener('click', () => storyPreviewClickHandler(story.id, stories, storyContainer));
-
-//         storyPreviewContainer.appendChild(storyPreview);
-//     }
-
-//     let randomStory = stories[Math.floor(Math.random() * stories.length)];
-//     oldStory = randomStory;
-
-//     if (queries.has('id')) {
-//         randomStory = stories.filter((story) => story.id === queries.get('id'))[0];
-//         oldStory = randomStory;
-//     }
-
-//     const storyCard = document.createElement('story-card');
-
-//     storyCard.setAttribute('src', randomStory.photoUrl);
-//     storyCard.setAttribute('title', randomStory.name);
-//     storyCard.setAttribute('description', randomStory.description);
-//     storyCard.setAttribute('date', formatDate(randomStory.createdAt))
-
-//     storyContainer.appendChild(storyCard);
-
-//     const progressBarInterval = setInterval(() => addProgressBar(progressBar, storyContainer, stories), 500);
-// });
-
 function changeStory(container, stories) {
     let randomStory = stories[Math.floor(Math.random() * stories.length)];
 
-    while (randomStory.id === oldStory.id) {
+    while (randomStory.id === this.oldStory.id) {
         randomStory = stories[Math.floor(Math.random() * stories.length)];
     }
 
-    oldStory = randomStory;
+    this.oldStory = randomStory;
 
     const storyCard = document.createElement('story-card');
 
