@@ -65,10 +65,10 @@ class AddStoryForm extends LitWithoutShadowDom {
         if (image) {
             const reader = new FileReader();
 
-            reader.onload = (e) => {
-                img.src = e.target.result;
+            reader.onload = (event) => {
+                img.src = event.target.result;
 
-                this.img = e.target.result;
+                this.img = event.target.result;
             }
 
             reader.readAsDataURL(image);

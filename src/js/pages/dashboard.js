@@ -45,7 +45,9 @@ const Index = {
         addStoryContainer.appendChild(addStoryText);
         storyPreviewContainer.appendChild(addStoryContainer);
     
-        addStoryContainer.addEventListener('click', () => window.location.href = location.origin + '/stories/add.html');
+        addStoryContainer.addEventListener('click', () => {
+            window.location.href = `${location.origin }/stories/add.html`
+        });
     
         for (const story of stories) {
             const storyPreview = document.createElement('story-preview');
@@ -63,7 +65,7 @@ const Index = {
         this.oldStory = randomStory;
     
         if (queries.has('id')) {
-            randomStory = stories.filter((story) => story.id === queries.get('id'))[0];
+            [ randomStory ] = stories.filter((story) => story.id === queries.get('id'));
             this.oldStory = randomStory;
         }
     
@@ -72,7 +74,7 @@ const Index = {
         storyCard.setAttribute('src', randomStory.photoUrl);
         storyCard.setAttribute('title', randomStory.name);
         storyCard.setAttribute('description', randomStory.description);
-        storyCard.setAttribute('date', formatDate(randomStory.createdAt))
+        storyCard.setAttribute('date', this.formatDate(randomStory.createdAt))
     
         storyContainer.appendChild(storyCard);
 
@@ -81,7 +83,7 @@ const Index = {
 
         document.querySelector('.row').appendChild(footerApp);
     
-        const progressBarInterval = setInterval(() => this.addProgressBar(progressBar, storyContainer, stories), 500);
+        setInterval(() => this.addProgressBar(progressBar, storyContainer, stories), 500);
     },
 
     async fetchData() {
@@ -116,7 +118,7 @@ const Index = {
         const width = Number(el.style.width.replaceAll(/[^\d.]/g, ''));
     
         if (width < 100) {
-            el.style.width = (width + 2.5) + '%';
+            el.style.width = `${width + 2.5}%`;
         } else {
             el.style.width = '0%';
         }
@@ -159,64 +161,64 @@ const Index = {
     }
 };
 
-function changeStory(container, stories) {
-    let randomStory = stories[Math.floor(Math.random() * stories.length)];
+// function changeStory(container, stories) {
+//     let randomStory = stories[Math.floor(Math.random() * stories.length)];
 
-    while (randomStory.id === this.oldStory.id) {
-        randomStory = stories[Math.floor(Math.random() * stories.length)];
-    }
+//     while (randomStory.id === this.oldStory.id) {
+//         randomStory = stories[Math.floor(Math.random() * stories.length)];
+//     }
 
-    this.oldStory = randomStory;
+//     this.oldStory = randomStory;
 
-    const storyCard = document.createElement('story-card');
+//     const storyCard = document.createElement('story-card');
 
-    renderStory(container, storyCard, randomStory);
-}
+//     this.renderStory(container, storyCard, randomStory);
+// }
 
-function addProgressBar(el, container, stories) {
-    const width = Number(el.style.width.replaceAll(/[^\d.]/g, ''));
+// function addProgressBar(el, container, stories) {
+//     const width = Number(el.style.width.replaceAll(/[^\d.]/g, ''));
 
-    if (width < 100) {
-        el.style.width = (width + 2.5) + '%';
-    } else {
-        el.style.width = '0%';
-    }
+//     if (width < 100) {
+//         el.style.width = `${width + 2.5}%`;
+//     } else {
+//         el.style.width = '0%';
+//     }
 
-    if (width === 100) {
-        changeStory(container, stories)
-    }
-}
+//     if (width === 100) {
+//         changeStory(container, stories)
+//     }
+// }
 
-function formatDate(date) {
-    return new Intl.DateTimeFormat(
-        'id-ID',
-        {
-            dateStyle: 'full'
-        }
-    ).format(new Date(date));
-}
+// function formatDate(date) {
+//     return new Intl.DateTimeFormat(
+//         'id-ID',
+//         {
+//             dateStyle: 'full'
+//         }
+//     ).format(new Date(date));
+// }
 
-function storyPreviewClickHandler(id, stories, container) {
-    const story = stories.filter((story) => story.id === id)[0];
+// function storyPreviewClickHandler(id, stories, container) {
+//     const story = stories.filter((story) => story.id === id)[0];
 
-    const storyCard = document.createElement('story-card');
+//     const storyCard = document.createElement('story-card');
 
-    renderStory(container, storyCard, story);
+//     this.renderStory(container, storyCard, story);
 
-    const progressBar = document.querySelector('.progress-bar');
+//     const progressBar = document.querySelector('.progress-bar');
 
-    progressBar.style.width = '0%';
-}
+//     progressBar.style.width = '0%';
+// }
 
-function renderStory(container, storyCard, story) {
-    container.removeChild(container.children[1]);
+// function renderStory(container, storyCard, story) {
+//     container.removeChild(container.children[1]);
 
-    storyCard.setAttribute('src', story.photoUrl);
-    storyCard.setAttribute('title', story.name);
-    storyCard.setAttribute('description', story.description);
-    storyCard.setAttribute('date', formatDate(story.createdAt))
+//     storyCard.setAttribute('src', story.photoUrl);
+//     storyCard.setAttribute('title', story.name);
+//     storyCard.setAttribute('description', story.description);
+//     storyCard.setAttribute('date', formatDate(story.createdAt))
 
-    container.appendChild(storyCard);
-}
+//     container.appendChild(storyCard);
+// }
 
 export default Index;

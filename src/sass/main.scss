@@ -11,10 +11,10 @@ $story-preview-border-active: white;
 }
 
 @mixin story-card {
-    object-fit: cover;
+    object-fit: contain;
     max-height: 500px;
-    min-height: 500px;
-    object-position: center top;
+    // min-height: 500px;
+    // object-position: center top;
 }
 
 *,
@@ -108,7 +108,7 @@ div.img-preview {
 
 story-card {
     img.img-fluid.card-img-top {
-        @include story-card();
+        @include story-card;
     }
 }
 
@@ -137,7 +137,7 @@ story-card {
 
 .card {
     > .card-img-top {
-        min-height: 400px;
+        // min-height: 400px;
         max-height: 400px;
         background-color: gray;
         animation: placeholder 1s infinite;
@@ -156,11 +156,10 @@ div#story-preview-placeholder {
     .img-placeholder {
         @include story-preview;
         background-color: gray;
-        animation: placeholder 1s infinite;
     }
 }
 
-@keyframes placeholder {
-    from { background-color: gray; }
-    to { background-color: darkgray; }
-}
+// @keyframes placeholder {
+//     from { background-color: gray; }
+//     to { background-color: darkgray; }
+// }

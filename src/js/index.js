@@ -1,7 +1,8 @@
 import 'regenerator-runtime';
 import '../sass/main.scss';
 
-import * as bootstrap from 'bootstrap';
+// import * as bootstrap from 'bootstrap';
+import 'bootstrap';
 import './components';
 import './pages';
 import Index from './pages/dashboard';
@@ -31,15 +32,15 @@ function detectRoute() {
 
     switch (true) {
         case loginPattern.test(href):
-            return routes['login'];
+            return routes.login;
         case registerPattern.test(href):
-            return routes['register'];
+            return routes.register;
         case addPattern.test(href):
-            return routes['add'];
+            return routes.add;
         case indexPattern.test(href):
-            return routes['index'];
+            return routes.index;
         case aboutPattern.test(href):
-            return routes['about'];
+            return routes.about;
     }
 }
 

@@ -21,13 +21,13 @@ function activePage() {
     switch (href) {
         case pages[0]:
         case pages[1]:
-            navLinks['home'].classList.add('active');
+            navLinks.home.classList.add('active');
             break;
         case pages[2]:
-            navLinks['add'].classList.add('active');
+            navLinks.add.classList.add('active');
             break;
         case pages[3]:
-            navLinks['about'].classList.add('active');
+            navLinks.about.classList.add('active');
             break;
     }
 }

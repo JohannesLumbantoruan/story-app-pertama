@@ -35,8 +35,6 @@ const Login = {
 
             const formData = this.getFormData();
 
-            console.log(formData);
-
             try {
                 const data = await this.sendRequest(formData);
 
@@ -57,7 +55,7 @@ const Login = {
 
                 alertMsg.innerText = message;
 
-                alerts.forEach((el) => el.style.display = 'block');
+                alerts.forEach((el) => { el.style.display = 'block' });
             }
         });
 
@@ -66,7 +64,7 @@ const Login = {
         const alerts = document.querySelectorAll('.alert, .alert *');
 
         closeBtn.addEventListener('click', () => {
-            alerts.forEach((el) => el.style.display = 'none');
+            alerts.forEach((el) => { el.style.display = 'none' });
         });
 
         // password visibility toggler listener
@@ -108,7 +106,7 @@ const Login = {
     },
 
     goToDashboardPage() {
-        location.href = location.origin + '/';
+        location.href = `${location.origin}/`;
     }
 };
 

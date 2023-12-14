@@ -21,7 +21,7 @@ class FloatingInputGroup extends LitWithoutShadowDom {
             return;
         }
 
-        const validity = e.target.validity;
+        const {validity} = e.target;
 
         if (validity.tooShort) {
             this.invalidFeedbackMsg = 'Password too short, minimal 8 characters.';

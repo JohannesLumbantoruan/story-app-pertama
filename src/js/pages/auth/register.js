@@ -56,7 +56,7 @@ const Register = {
             const formData = this.getFormData();
 
             try {
-                const data = await this.sendRequest(formData);
+                await this.sendRequest(formData);
 
                 this.goToLoginPage();
             } catch (error) {
@@ -71,7 +71,7 @@ const Register = {
                 blur.style.filter = 'none';
                 alertMsg.innerText = message;
 
-                alerts.forEach((el) => el.style.display = 'block');
+                alerts.forEach((el) => { el.style.display = 'block' });
             }
         });
 
@@ -80,7 +80,22 @@ const Register = {
         const alerts = document.querySelectorAll('.alert, .alert *');
 
         closeBtn.addEventListener('click', () => {
-            alerts.forEach((el) => el.style.display = 'none');
+            alerts.forEach((el) => { el.style.display = 'none' });
+        });
+
+        // password visibility toggler listener
+        const toggler = document.querySelector('.input-group .bi');
+
+        toggler.addEventListener('click', (e) => {
+            if (e.target.classList.contains('bi-eye-fill')) {
+                e.target.classList.remove('bi-eye-fill');
+                e.target.classList.add('bi-eye-slash-fill');
+                passwordInput.type = 'text';
+            } else {
+                e.target.classList.add('bi-eye-fill');
+                e.target.classList.remove('bi-eye-slash-fill');
+                passwordInput.type = 'password';
+            }
         });
     },
 
@@ -100,7 +115,7 @@ const Register = {
     },
 
     goToLoginPage() {
-        location.href = location.origin + '/auth/login.html';
+        location.href = `${location.origin}/auth/login.html`;
     }
 };
 

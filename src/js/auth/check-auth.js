@@ -24,8 +24,7 @@ const CheckUserAuth = {
             }
 
             if(this.isOnAuthPage()) {
-                console.log('On auth page');
-                location.href = location.origin + '/';
+                location.href = `${location.origin}/`;
             }
         } else {
             if (!this.isOnAuthPage()) {

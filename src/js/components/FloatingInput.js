@@ -19,7 +19,7 @@ class FloatingInput extends LitWithoutShadowDom {
             return;
         }
 
-        const validity = e.target.validity;
+        const {validity} = e.target;
 
         if (validity.patternMismatch) {
             this.invalidFeedbackMsg = 'Name can only consists of letters and space';
